@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+
 @Getter
 @Setter
 public class RequestRegisterMember {

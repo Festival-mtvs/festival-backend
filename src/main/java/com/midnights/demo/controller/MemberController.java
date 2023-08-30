@@ -1,6 +1,8 @@
 package com.midnights.demo.controller;
 
+import com.midnights.demo.aggregate.dto.member.RequestLoginMember;
 import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
+import com.midnights.demo.aggregate.dto.member.ResponseLoginMember;
 import com.midnights.demo.aggregate.dto.member.ResponseRegisterMember;
 import com.midnights.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +52,13 @@ public class MemberController {
             return "중복된 아이디입니다.";
         }
         return "사용 가능한 아이디입니다.";
+    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<ResponseLoginMember> login(@RequestBody RequestLoginMember requestLoginMember){
+        ResponseLoginMember responseLoginMember = memberService.loginMember(requestLoginMember);
+
+        return ResponseEntity.ok(responseLoginMember);
     }
 }

@@ -33,6 +33,9 @@ dependencies {
     //mysql
     implementation 'mysql:mysql-connector-java:8.0.25'
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation 'org.modelmapper:modelmapper:3.0.0'
 }
 
 tasks.named('test') {

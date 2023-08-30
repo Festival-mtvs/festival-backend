@@ -6,6 +6,7 @@ import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.repository.FestivalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,11 @@ public class FestivalService {
     }
 
     // 해당 지역에 포함 된 festival List 조회
-    public List<FestivalDTO> findAllFestivalByHostArea(Pageable pageable , String hostArea ) {
-        List<Festival> festivals = festivalRepository.findFestivalByHostArea(hostArea);
+    public Page<Festival> findAllFestivalByHostArea(Pageable pageable , String hostArea ) {
+        Page<Festival> festivals = festivalRepository.findFestivalByHostArea(hostArea, pageable);
 
-        return festivals.stream().map(festival -> modelMapper.map(festival, FestivalDTO.class)).collect(Collectors.toList());
+        return festivals;
+//        return festivals.stream().map(festival -> modelMapper.map(festival, FestivalDTO.class)).collect(Collectors.toList());
     }
 
     // 상세 조회

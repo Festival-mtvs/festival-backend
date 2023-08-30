@@ -1,9 +1,11 @@
 package com.midnights.demo.controller;
 
 import com.midnights.demo.aggregate.dto.festival.FestivalDTO;
+import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.common.ResponseMessage;
 import com.midnights.demo.service.FestivalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
@@ -39,7 +41,7 @@ public class FestivalController {
 
         Map<String, Object> responseMap = new HashMap<>();
 
-        List<FestivalDTO> festivals = festivalService.findAllFestivalByHostArea(pageable, hostArea);
+        Page<Festival> festivals = festivalService.findAllFestivalByHostArea(pageable, hostArea);
 
         responseMap.put("festivals", festivals);
 

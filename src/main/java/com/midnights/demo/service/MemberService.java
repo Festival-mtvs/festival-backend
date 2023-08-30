@@ -1,6 +1,8 @@
 package com.midnights.demo.service;
 
+import com.midnights.demo.aggregate.dto.member.RequestLoginMember;
 import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
+import com.midnights.demo.aggregate.dto.member.ResponseLoginMember;
 import com.midnights.demo.aggregate.dto.member.ResponseRegisterMember;
 import com.midnights.demo.aggregate.entity.Member;
 import com.midnights.demo.repository.MemberRepository;
@@ -14,6 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    /* 회원가입 */
     @Transactional
     public ResponseRegisterMember registMember(RequestRegisterMember requestRegisterMember) {
         Member member = Member.toEntity(requestRegisterMember);
@@ -25,6 +28,7 @@ public class MemberService {
         return responseRegisterMember;
     }
 
+    /* 아이디 중복 체크 */
     @Transactional(readOnly = true)
     public boolean checkId(String memberId) {
         Member member = memberRepository.findById(memberId);
@@ -33,5 +37,12 @@ public class MemberService {
             return false;
         }
         return true;
+    }
+
+    /* 로그인 */
+    @Transactional(readOnly = true)
+    public ResponseLoginMember loginMember(RequestLoginMember requestLoginMember) {
+
+        return null;
     }
 }

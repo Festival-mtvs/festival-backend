@@ -5,16 +5,14 @@ import com.midnights.demo.common.ResponseMessage;
 import com.midnights.demo.service.FestivalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -34,14 +32,14 @@ public class FestivalController {
 
     // 모든 축제 조회
     @GetMapping("/festivals")
-    public ResponseEntity<ResponseMessage> findAllFestivalByHostArea(@PageableDefault(size = 3) Pageable pageable) {
+    public ResponseEntity<ResponseMessage> findAllFestivalByHostArea(@PageableDefault(size = 3) Pageable pageable, @RequestParam String hostArea) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
         Map<String, Object> responseMap = new HashMap<>();
 
-        List<FestivalDTO> festivals = festivalService.findAllFestivalByHostArea(pageable);
+        List<FestivalDTO> festivals = festivalService.findAllFestivalByHostArea(pageable, hostArea);
 
         responseMap.put("festivals", festivals);
 

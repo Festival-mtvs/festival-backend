@@ -1,7 +1,7 @@
 insert into member(member_no, id, password)
-values (1, 'alal', 'qlql'),
-       (2, 'anan', 'slsl'),
-       (3, 'ahah', 'dldl');
+values (1, 'alal', 'dndbajrjd23@'),
+       (2, 'anan', 'dndbajrjd24@'),
+       (3, 'ahah', 'dndbajrjd25@');
 
 
 insert into festival(festival_no, festival_name, host_area, festival_period, festival_type, festival_area, area_type)

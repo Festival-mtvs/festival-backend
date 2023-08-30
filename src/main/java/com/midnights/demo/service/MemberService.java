@@ -5,6 +5,8 @@ import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
 import com.midnights.demo.aggregate.dto.member.ResponseLoginMember;
 import com.midnights.demo.aggregate.dto.member.ResponseRegisterMember;
 import com.midnights.demo.aggregate.entity.Member;
+import com.midnights.demo.exceptionhanlder.InvalidPasswordException;
+import com.midnights.demo.exceptionhanlder.UserNotFoundException;
 import com.midnights.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +44,18 @@ public class MemberService {
     /* 로그인 */
     @Transactional(readOnly = true)
     public ResponseLoginMember loginMember(RequestLoginMember requestLoginMember) {
+        Member member = memberRepository.findById(requestLoginMember.getId());
 
-        return null;
+        if (member == null){
+            throw new UserNotFoundException("아이디가 존재하지 않습니다.");
+        }
+
+        else if (!(member.getPassword().equals(requestLoginMember.getPassword()))){
+            throw new InvalidPasswordException("비밀번호가 다릅니다.");
+        }
+
+        ResponseLoginMember responseLoginMember = ResponseLoginMember.fromEntity(member);
+
+        return responseLoginMember;
     }
 }

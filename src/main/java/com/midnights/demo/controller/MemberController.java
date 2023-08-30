@@ -1,9 +1,6 @@
 package com.midnights.demo.controller;
 
-import com.midnights.demo.aggregate.dto.member.RequestLoginMember;
-import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
-import com.midnights.demo.aggregate.dto.member.ResponseLoginMember;
-import com.midnights.demo.aggregate.dto.member.ResponseRegisterMember;
+import com.midnights.demo.aggregate.dto.member.*;
 import com.midnights.demo.exceptionhanlder.InvalidPasswordException;
 import com.midnights.demo.exceptionhanlder.UserNotFoundException;
 import com.midnights.demo.service.MemberService;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,9 +70,14 @@ public class MemberController {
     /* 로그인 컨트롤러 */
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<?> login(@RequestBody RequestLoginMember requestLoginMember){
+    public ResponseEntity<?> login(@RequestBody RequestLoginMember requestLoginMember, HttpServletRequest request){
         try{
             ResponseLoginMember responseLoginMember = memberService.loginMember(requestLoginMember);
+
+            // 세션 설정
+            HttpSession session = request.getSession();
+            session.setAttribute("memberId", responseLoginMember.getId());
+
             return ResponseEntity.ok(responseLoginMember); // 로그인 성공 - 200 OK 상태 코드와 함께 응답 반환
         }catch(UserNotFoundException e){
             Map<String, String> userIdErrorResponse = new HashMap<>();
@@ -85,5 +89,26 @@ public class MemberController {
             passwordErrorResponse.put("error", e.getMessage());
             return new ResponseEntity<>(passwordErrorResponse, HttpStatus.BAD_REQUEST); // 비밀번호 오류 - 400 Bad Request 상태 코드 반환
         }
+    }
+
+    /* 로그아웃 컨트롤러 */
+    @PostMapping("/logout")
+    @ResponseBody
+    public ResponseEntity<?> logout(@RequestBody RequestLogoutMember requestLogoutMember, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        boolean logoutResult = memberService.logoutMember(session, requestLogoutMember.getId());
+
+        if (logoutResult) {
+            ResponseLogoutMember responseLogoutMember = new ResponseLogoutMember(requestLogoutMember.getId(), "로그아웃 성공");
+
+            return ResponseEntity.ok(responseLogoutMember);
+        }
+
+        // 로그아웃 실패시 에러 메시지 반환
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "로그아웃 실패");
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 }

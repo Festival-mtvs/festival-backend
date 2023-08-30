@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.midnights.demo")
 @EnableJpaRepositories(basePackages = "com.midnights.demo")
 public class JpaConfiguration {
+
+
 }

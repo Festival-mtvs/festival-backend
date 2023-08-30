@@ -3,7 +3,6 @@ package com.midnights.demo.controller;
 import com.midnights.demo.aggregate.dto.log.RequestSaveLog;
 import com.midnights.demo.aggregate.dto.log.ResponseSaveLog;
 import com.midnights.demo.service.LogService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class LogController {
 
     @PostMapping("/postLog")
     @ResponseBody
-    public ResponseEntity<ResponseSaveLog>saveLog(@RequestBody RequestSaveLog requestSaveLog){
+    public ResponseEntity<ResponseSaveLog> saveLog(@RequestBody RequestSaveLog requestSaveLog){
         ResponseSaveLog responseSaveLog = logService.saveEndLog(requestSaveLog);
 
         return ResponseEntity.ok(responseSaveLog);

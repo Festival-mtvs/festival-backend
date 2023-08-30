@@ -21,9 +21,7 @@ public class FestivalService {
     private final FestivalRepository festivalRepository;
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
-    @PersistenceContext
-    private EntityManager entityManager;
-    private String hostArea;
+//    private String hostArea;
 
     @Autowired
     public FestivalService(FestivalRepository festivalRepository, ModelMapper modelMapper, ObjectMapper objectMapper) {
@@ -34,9 +32,8 @@ public class FestivalService {
     }
 
     // 해당 지역에 포함 된 festival List 조회
-    public List<FestivalDTO> findAllFestivalByHostArea(Pageable pageable) {
-
-        List<Festival> festivals = festivalRepository.findFestivalsByHostArea(String.valueOf(Sort.by(Sort.Direction.DESC, "hostArea")));
+    public List<FestivalDTO> findAllFestivalByHostArea(Pageable pageable , String hostArea ) {
+        List<Festival> festivals = festivalRepository.findFestivalByHostArea(hostArea);
 
         return festivals.stream().map(festival -> modelMapper.map(festival, FestivalDTO.class)).collect(Collectors.toList());
     }

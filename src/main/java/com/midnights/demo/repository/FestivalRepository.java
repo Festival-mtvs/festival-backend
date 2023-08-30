@@ -9,7 +9,10 @@ import java.util.List;
 @Repository
 public interface FestivalRepository extends JpaRepository<Festival, Long> {
 
-    List<Festival> findFestivalsByHostArea(String hostArea);
+//    List<Festival> findFestivalsByHostArea(String hostArea);
+
+    List<Festival> findFestivalByHostArea(String hostArea);
+
 
     Festival findFestivalByFestivalNo(Long festivalNo);
 }

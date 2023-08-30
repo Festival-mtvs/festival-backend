@@ -1,9 +1,6 @@
 package com.midnights.demo.service;
 
-import com.midnights.demo.aggregate.dto.member.RequestLoginMember;
-import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
-import com.midnights.demo.aggregate.dto.member.ResponseLoginMember;
-import com.midnights.demo.aggregate.dto.member.ResponseRegisterMember;
+import com.midnights.demo.aggregate.dto.member.*;
 import com.midnights.demo.aggregate.entity.Member;
 import com.midnights.demo.exceptionhanlder.InvalidPasswordException;
 import com.midnights.demo.exceptionhanlder.UserNotFoundException;
@@ -11,6 +8,8 @@ import com.midnights.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpSession;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +56,24 @@ public class MemberService {
         ResponseLoginMember responseLoginMember = ResponseLoginMember.fromEntity(member);
 
         return responseLoginMember;
+    }
+
+
+    /* 로그아웃 */
+    @Transactional(readOnly = true)
+    public boolean logoutMember(HttpSession session, String memberNo) {
+        if (session != null) {
+            String sessionId = (String) session.getAttribute("memberId");
+
+            // 세션에 저장된 memberId와 요청으로 들어온 memberId가 일치하는지 확인
+            // 일치하면 로그아웃 처리
+            if (sessionId != null && sessionId.equals(memberNo)) {
+                session.invalidate();
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

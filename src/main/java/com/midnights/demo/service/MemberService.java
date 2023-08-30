@@ -14,6 +14,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    /* 회원가입 */
     @Transactional
     public ResponseRegisterMember registMember(RequestRegisterMember requestRegisterMember) {
         Member member = Member.toEntity(requestRegisterMember);
@@ -25,6 +26,7 @@ public class MemberService {
         return responseRegisterMember;
     }
 
+    /* 아이디 중복 체크 */
     @Transactional(readOnly = true)
     public boolean checkId(String memberId) {
         Member member = memberRepository.findById(memberId);

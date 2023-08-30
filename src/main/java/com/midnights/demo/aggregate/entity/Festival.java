@@ -21,8 +21,8 @@ public class Festival {
     private String hostArea;
 
     @Comment("개최 기간")
-    @Column(name = "event_period")
-    private String eventPeriod;
+    @Column(name = "festival_period")
+    private String festivalPeriod;
 
     @Comment("축제 유형")
     @Column(name = "festival_type")

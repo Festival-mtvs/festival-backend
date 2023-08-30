@@ -16,6 +16,10 @@ public class Festival {
     @Column(name = "festival_no")
     private Long festivalNo;
 
+    @Comment("축제 명")
+    @Column(name = "festival_name")
+    private String festivalName;
+
     @Comment("개최 지역")
     @Column(name = "host_area")
     private String hostArea;

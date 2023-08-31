@@ -47,4 +47,12 @@ public class Festival {
     @Comment("좋아요 수")
     @Column(name = "like_count")
     private Long likeCount;
+
+    public void increaseLikeCount() {
+        this.likeCount += 1L;
+    }
+
+    public void decreaseLikeCount() {
+        this.likeCount = Math.max(0L, this.likeCount - 1);
+    }
 }

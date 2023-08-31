@@ -71,6 +71,7 @@ public class FestivalController {
                 .body(new ResponseMessage(200, "success", responseMap));
     }
 
+    /* 좋아요 및 추천 시스템 */
     @PostMapping("/festivals/{festivalNo}/like")
     @ResponseBody
     public ResponseEntity<ResponsePostLike> postLike(@RequestBody RequestPostLike requestPostLike, @PathVariable Long festivalNo){

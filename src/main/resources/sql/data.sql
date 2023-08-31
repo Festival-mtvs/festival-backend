@@ -3,7 +3,7 @@ values (1, 'alal', 'dndbajrjd23@'),
        (2, 'anan', 'dndbajrjd24@'),
        (3, 'ahah', 'dndbajrjd25@');
 
-
+-- 데이터 추가
 insert into festival(festival_no, festival_name, city_name, host_area, festival_period, festival_type, festival_area, area_type)
 values
 -- (1, '호롱축제', '경기', '2023-08-23', '문화체육', '경기도 수원시 장안구', '도심'),

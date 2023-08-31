@@ -20,6 +20,10 @@ public class Festival {
     @Column(name = "festival_name")
     private String festivalName;
 
+    @Comment("지역 명")
+    @Column(name = "city_name")
+    private String cityName;
+
     @Comment("개최 지역")
     @Column(name = "host_area")
     private String hostArea;

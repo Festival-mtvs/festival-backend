@@ -11,10 +11,7 @@ import java.util.List;
 @Repository
 public interface FestivalRepository extends JpaRepository<Festival, Long> {
 
-//    List<Festival> findFestivalsByHostArea(String hostArea);
-
-    Page<Festival> findFestivalByHostArea(String hostArea, Pageable pageable);
-
-
+//    Page<Festival> findFestivalByHostArea(String cityName, Pageable pageable);
+    Page<Festival> findFestivalByCityName(String cityName, Pageable pageable);
     Festival findFestivalByFestivalNo(Long festivalNo);
 }

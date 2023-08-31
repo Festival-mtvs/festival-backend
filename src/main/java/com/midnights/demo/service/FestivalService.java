@@ -33,8 +33,8 @@ public class FestivalService {
     }
 
     // 해당 지역에 포함 된 festival List 조회
-    public Page<Festival> findAllFestivalByHostArea(Pageable pageable , String hostArea ) {
-        Page<Festival> festivals = festivalRepository.findFestivalByHostArea(hostArea, pageable);
+    public Page<Festival> findFestivalByCityName(Pageable pageable , String cityName ) {
+        Page<Festival> festivals = festivalRepository.findFestivalByCityName(cityName, pageable);
 
         return festivals;
 //        return festivals.stream().map(festival -> modelMapper.map(festival, FestivalDTO.class)).collect(Collectors.toList());

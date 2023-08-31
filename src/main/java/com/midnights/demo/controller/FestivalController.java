@@ -34,14 +34,14 @@ public class FestivalController {
 
     // 모든 축제 조회
     @GetMapping("/festivals")
-    public ResponseEntity<ResponseMessage> findAllFestivalByHostArea(@PageableDefault(size = 3) Pageable pageable, @RequestParam String hostArea) {
+    public ResponseEntity<ResponseMessage> findFestivalByCityName(@PageableDefault(size = 3) Pageable pageable, @RequestParam String cityName) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
         Map<String, Object> responseMap = new HashMap<>();
 
-        Page<Festival> festivals = festivalService.findAllFestivalByHostArea(pageable, hostArea);
+        Page<Festival> festivals = festivalService.findFestivalByCityName(pageable, cityName);
 
         responseMap.put("festivals", festivals);
 

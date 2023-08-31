@@ -16,7 +16,7 @@ public class ResponseRegisterMember {
     public static ResponseRegisterMember fromEntity(Member member) {
         return ResponseRegisterMember.builder()
                 .memberNo(member.getMemberNo())
-                .message("회원가입 완료")
+                .message("register successfully")
                 .build();
     }
 }

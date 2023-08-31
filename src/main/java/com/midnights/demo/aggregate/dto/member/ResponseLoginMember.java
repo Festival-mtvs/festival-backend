@@ -18,8 +18,8 @@ public class ResponseLoginMember {
     public static ResponseLoginMember fromEntity(Member member) {
         return ResponseLoginMember.builder()
                 .id(member.getId())
-                .message("로그인 완료")
-                .error(null)
+                .message("login successfully")
+                .error("null")
                 .build();
     }
 }

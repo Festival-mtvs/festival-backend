@@ -30,11 +30,6 @@ public class AdminController {
 
     private final FestivalService festivalService;
 
-    @Autowired
-    public AdminController(FestivalService festivalService) {
-        this.festivalService = festivalService;
-    }
-
     @GetMapping("/")
     public String adminPage(){
         return "login";
@@ -45,6 +40,4 @@ public class AdminController {
         System.out.println("admin = " + admin);
         return null;
     }
-
-
 }

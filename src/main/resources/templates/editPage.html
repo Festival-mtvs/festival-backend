@@ -9,17 +9,40 @@
 <body>
 
 <div class="container mt-5">
-  <h2>Edit Festival</h2>
+  <header class="mb-4">
+    <h2 class="text-center">Edit Festival</h2>
+  </header>
 
   <form th:action="@{/admin/edit/{id}(id=${id})}" method="post">
-    축제명:  	<input type='text' name ='festivalName'><br/>
-    지역명:  	<input type='text' name ='regionName'><br/>
-    개최 지역:  	<input type='text' name ='hostRegion'><br/>
-    개최 기간:  	<input type = 'date' name ='hostPeriod'><br/>
-    축제 유형:  	<input type = 'text' name ='festivalType'><br/>
-    축제 장소:  	<input type = 'text' name ='festivalPlace'><br/>
-    장소 유형:  	<input type = 'text'name ='placeType'><br/>
-    <button type="submit">수정</button>
+    <div class="form-group">
+      <label for="festivalName">축제명:</label>
+      <input type='text' id="festivalName" class="form-control" name='festivalName'>
+    </div>
+    <div class="form-group">
+      <label for="regionName">지역명:</label>
+      <input type='text' id="regionName" class="form-control" name='regionName'>
+    </div>
+    <div class="form-group">
+      <label for="hostRegion">개최 지역:</label>
+      <input type='text' id="hostRegion" class="form-control" name='hostRegion'>
+    </div>
+    <div class="form-group">
+      <label for="hostPeriod">개최 기간:</label>
+      <input type='date' id="hostPeriod" class="form-control" name='hostPeriod'>
+    </div>
+    <div class="form-group">
+      <label for="festivalType">축제 유형:</label>
+      <input type='text' id="festivalType" class="form-control" name='festivalType'>
+    </div>
+    <div class="form-group">
+      <label for="festivalPlace">축제 장소:</label>
+      <input type='text' id="festivalPlace" class="form-control" name='festivalPlace'>
+    </div>
+    <div class="form-group">
+      <label for="placeType">장소 유형:</label>
+      <input type='text' id="placeType" class="form-control" name='placeType'>
+    </div>
+    <button type="submit" class="btn btn-primary">수정</button>
   </form>
 </div>
 

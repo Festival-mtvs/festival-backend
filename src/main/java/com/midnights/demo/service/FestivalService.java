@@ -75,4 +75,10 @@ public class FestivalService {
         ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(heart, festival);
         return responsePostLike;
     }
+
+    public Page<Festival> findAllFestivals(Pageable pageable) {
+
+        Page<Festival> festivals = festivalRepository.findAll(pageable);
+        return festivals;
+    }
 }

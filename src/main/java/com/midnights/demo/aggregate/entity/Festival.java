@@ -48,6 +48,10 @@ public class Festival {
     @Column(name = "like_count")
     private Long likeCount;
 
+    @Comment("is_homepage")
+    @Column(name = "is_homepage")
+    private int isHomepage;
+
     public void increaseLikeCount() {
         this.likeCount += 1L;
     }

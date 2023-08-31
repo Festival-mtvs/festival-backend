@@ -2,21 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Festival DashBoard</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container mt-5">
+    <header class="mb-4">
+        <h2 class="text-center">Festival Management</h2>
+        <a class='btn btn-primary mb-3' th:href="@{/admin/adminPage}">Back to Admin Page</a>
+    </header>
 
-    <a class='btn btn-primary mb-3' th:href="@{/admin/adminPage}">Back to Admin Page</a>
-
-    <!-- Table -->
     <table class='table table-striped'>
         <thead class='thead-dark'>
         <tr>
-            <!-- Table Headers -->
             <th>축제명</th>
             <th>축제 장소</th>
             <th>개최 지역</th>
@@ -26,18 +26,14 @@
             <th></th>
         </tr>
         </thead>
-
-        <!-- Table Data -->
         <tbody th:each='f : ${response.festivals}'>
         <tr>
-            <!-- Festival Data-->
             <td th:text='${f.getFestivalName()}'></td>
             <td th:text='${f.getFestivalArea()}'></td>
             <td th:text='${f.getHostArea()}'></td>
             <td th:text='${f.getCityName()}'></td>
             <td th:text='${f.getFestivalPeriod()}'></td>
             <td th:text='${f.getFestivalType()}'></td>
-            <!-- Action Buttons -->
             <td>
                 <div class='d-flex justify-content-between'>
                     <a th:href="@{/admin/edit/{id}(id=${f.getFestivalNo()})}" class='btn btn-info'>Edit</a>
@@ -46,30 +42,25 @@
             </td>
         </tr>
         </tbody>
-
     </table>
 
-    <!-- Pagination -->
     <nav aria-label='Page navigation'>
         <ul class='pagination justify-content-center'>
-            <!-- Previous Page Link -->
             <li th:class="${response.pageNumber == 0} ? 'page-item disabled' : 'page-item'">
-                <!-- The URL needs to be updated with your actual URL structure -->
                 <a class='page-link' th:href="@{/admin/read(page=${response.pageNumber - 1})}" tabindex='-1'>Previous</a>
             </li>
-
-            <!-- Next Page Link-->
+            <!-- 추가된 페이지 번호 -->
+            <li th:each="pageNo : ${#numbers.sequence(0, response.totalPages-1)}"
+                th:class="${response.pageNumber == pageNo} ? 'page-item active' : 'page-item'">
+                <a class='page-link' th:href="@{/admin/read(page=${pageNo})}" th:text="${pageNo + 1}"></a>
+            </li>
             <li th:class="${response.pageNumber + 1 >= response.totalPages} ? 'page-item disabled' : 'page-item'">
-                <!-- The URL needs to be updated with your actual URL structure -->
                 <a class='page-link' th:href="@{/admin/read(page=${response.pageNumber + 1})}">Next</a>
             </li>
         </ul>
     </nav>
-
 </div>
 
-
-<!-- jQuery and Bootstrap JS for styling and functionality -->
 <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>
 <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'></script>
 <script>
@@ -80,7 +71,6 @@
     }
 
     function deleteFestival(festivalId) {
-        // Fetch API를 사용하여 서버 엔드포인트 호출
         fetch('/admin/delete/' + festivalId, {
             method: 'DELETE',
             headers: {
@@ -89,7 +79,6 @@
         })
             .then(response => response.json())
             .then(result => {
-                // 서버에서 삭제 성공 시, 페이지 새로고침
                 window.location.reload();
             })
             .catch(error => {
@@ -100,4 +89,3 @@
 
 </body>
 </html>
-

@@ -27,8 +27,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("admin/*")
 public class AdminController {
-    @GetMapping("")
-    public String loginPage(){
 
     private final FestivalService festivalService;
 

@@ -1,5 +1,7 @@
 package com.midnights.demo.aggregate.entity;
 
+import com.midnights.demo.aggregate.dto.member.RequestRegisterMember;
+import com.midnights.demo.aggregate.dto.point.RequestIncrePoint;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
@@ -21,9 +23,21 @@ public class Point {
 
     @Column(name = "point_count")
     @Comment("총 포인트")
-    private Long pointCount;
+    private Long point;
 
-    @Column(name = "member_no")
-    @Comment("회원 번호")
-    private Long memberNo;
+    @Column(name = "member_id")
+    @Comment("회원 아이디")
+    private String memberId;
+
+    public static Point toEntity(RequestRegisterMember requestRegisterMember) {
+        return Point.builder()
+                .point(0L)
+                .memberId(requestRegisterMember.getId())
+                .build();
+    }
+
+    /* 포인트 증가 */
+    public void increasePoint(RequestIncrePoint point) {
+        this.point += point.getPoint();
+    }
 }

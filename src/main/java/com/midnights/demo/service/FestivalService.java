@@ -6,7 +6,6 @@ import com.midnights.demo.aggregate.dto.like.RequestPostLike;
 import com.midnights.demo.aggregate.dto.like.ResponsePostLike;
 import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.aggregate.entity.Heart;
-import com.midnights.demo.aggregate.entity.Recommend;
 import com.midnights.demo.repository.FestivalRepository;
 import com.midnights.demo.repository.HeartRepository;
 import com.midnights.demo.repository.RecommendRepository;
@@ -22,7 +21,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -72,7 +70,7 @@ public class FestivalService {
             festival.increaseLikeCount();
 
             String response = sendToFlaskServer(festivalNo);
-            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response);
+            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response, festival.getLikeCount());
 
             return responsePostLike;
         }
@@ -82,21 +80,23 @@ public class FestivalService {
             festival.increaseLikeCount();
 
             String response = sendToFlaskServer(festivalNo);
-            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response);
+            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response, festival.getLikeCount());
 
             return responsePostLike;
-        } else {
+        }
+        else {
             heart.changeDonLike();
             festival.decreaseLikeCount();
 
             return ResponsePostLike.builder()
                     .recommendList(new ArrayList<>())
+                    .likeCount(festival.getLikeCount())
                     .build();
         }
     }
 
     private String sendToFlaskServer(Long festivalNo) {
-        String url = "https://3cbd-210-110-77-226.ngrok-free.app";
+        String url = "https://53f9-210-110-77-226.ngrok-free.app";
 
         WebClient webClient = WebClient.create();
 

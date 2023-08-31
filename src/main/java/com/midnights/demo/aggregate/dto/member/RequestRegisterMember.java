@@ -2,6 +2,7 @@ package com.midnights.demo.aggregate.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
+@ToString
 public class RequestRegisterMember {
 
     @NotBlank(message = "ID is not Blank!!")

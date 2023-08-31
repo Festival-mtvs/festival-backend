@@ -2,6 +2,8 @@ package com.midnights.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.midnights.demo.aggregate.dto.festival.FestivalDTO;
+import com.midnights.demo.aggregate.dto.like.RequestPostLike;
+import com.midnights.demo.aggregate.dto.like.ResponsePostLike;
 import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.repository.FestivalRepository;
 import org.modelmapper.ModelMapper;
@@ -32,6 +34,7 @@ public class FestivalService {
 
     }
 
+
     // 해당 지역에 포함 된 festival List 조회
     public Page<Festival> findFestivalByCityName(Pageable pageable , String cityName ) {
         Page<Festival> festivals = festivalRepository.findFestivalByCityName(cityName, pageable);
@@ -48,4 +51,8 @@ public class FestivalService {
         return modelMapper.map(findFestival, FestivalDTO.class);
     }
 
+    public ResponsePostLike postLike(RequestPostLike requestPostLike) {
+
+        return null;
+    }
 }

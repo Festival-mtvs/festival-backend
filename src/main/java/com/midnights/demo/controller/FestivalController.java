@@ -1,6 +1,8 @@
 package com.midnights.demo.controller;
 
 import com.midnights.demo.aggregate.dto.festival.FestivalDTO;
+import com.midnights.demo.aggregate.dto.like.RequestPostLike;
+import com.midnights.demo.aggregate.dto.like.ResponsePostLike;
 import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.common.ResponseMessage;
 import com.midnights.demo.service.FestivalService;
@@ -67,6 +69,13 @@ public class FestivalController {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(new ResponseMessage(200, "success", responseMap));
+    }
+
+    @PostMapping("/festivals/like")
+    @ResponseBody
+    public ResponseEntity<ResponsePostLike> postLike(@RequestBody RequestPostLike requestPostLike){
+        ResponsePostLike responsePostLike = festivalService.postLike(requestPostLike);
+        return responsePostLike;
     }
 
 }

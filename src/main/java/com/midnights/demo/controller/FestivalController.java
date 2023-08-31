@@ -71,11 +71,11 @@ public class FestivalController {
                 .body(new ResponseMessage(200, "success", responseMap));
     }
 
-    @PostMapping("/festivals/like")
+    @PostMapping("/festivals/{festivalNo}/like")
     @ResponseBody
-    public ResponseEntity<ResponsePostLike> postLike(@RequestBody RequestPostLike requestPostLike){
-        ResponsePostLike responsePostLike = festivalService.postLike(requestPostLike);
-        return responsePostLike;
+    public ResponseEntity<ResponsePostLike> postLike(@RequestBody RequestPostLike requestPostLike, @PathVariable Long festivalNo){
+        ResponsePostLike responsePostLike = festivalService.postLike(requestPostLike, festivalNo);
+        return ResponseEntity.ok(responsePostLike);
     }
 
 }

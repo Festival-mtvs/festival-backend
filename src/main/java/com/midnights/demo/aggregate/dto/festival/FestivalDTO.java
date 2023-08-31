@@ -12,4 +12,5 @@ public class FestivalDTO {
     private String festivalType;
     private String festivalArea;
     private String areaType;
+    private Long likeCount;
 }

@@ -43,4 +43,8 @@ public class Festival {
     @Comment("장소 유형")
     @Column(name = "area_type")
     private String areaType;
+
+    @Comment("좋아요 수")
+    @Column(name = "like_count")
+    private Long likeCount;
 }

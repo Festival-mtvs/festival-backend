@@ -2,9 +2,11 @@ package com.midnights.demo.service;
 
 import com.midnights.demo.aggregate.dto.member.*;
 import com.midnights.demo.aggregate.entity.Member;
+import com.midnights.demo.aggregate.entity.Point;
 import com.midnights.demo.exceptionhanlder.InvalidPasswordException;
 import com.midnights.demo.exceptionhanlder.UserNotFoundException;
 import com.midnights.demo.repository.MemberRepository;
+import com.midnights.demo.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +19,16 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final PointRepository pointRepository;
+
     /* 회원가입 */
     @Transactional
     public ResponseRegisterMember registMember(RequestRegisterMember requestRegisterMember) {
         Member member = Member.toEntity(requestRegisterMember);
+        Point point = Point.toEntity(requestRegisterMember);
 
         memberRepository.save(member);
+
 
         ResponseRegisterMember responseRegisterMember = ResponseRegisterMember.fromEntity(member);
 
@@ -46,11 +52,11 @@ public class MemberService {
         Member member = memberRepository.findById(requestLoginMember.getId());
 
         if (member == null){
-            throw new UserNotFoundException("아이디가 존재하지 않습니다.");
+            throw new UserNotFoundException("Id is not exist.");
         }
 
         else if (!(member.getPassword().equals(requestLoginMember.getPassword()))){
-            throw new InvalidPasswordException("비밀번호가 다릅니다.");
+            throw new InvalidPasswordException("password is not correct.");
         }
 
         ResponseLoginMember responseLoginMember = ResponseLoginMember.fromEntity(member);

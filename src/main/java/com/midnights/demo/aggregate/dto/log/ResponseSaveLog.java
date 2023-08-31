@@ -21,7 +21,7 @@ public class ResponseSaveLog {
         return ResponseSaveLog.builder()
                 .logNo(log.getLogNo())
                 .holdTime(log.getHoldTime())
-                .message("저장 완료")
+                .message("log saved successfully")
                 .build();
     }
 }

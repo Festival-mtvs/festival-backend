@@ -1,7 +1,8 @@
 insert into member(member_no, id, password)
 values (1, 'alal', 'dndbajrjd23@'),
        (2, 'anan', 'dndbajrjd24@'),
-       (3, 'ahah', 'dndbajrjd25@');
+       (3, 'ahah', 'dndbajrjd25@'),
+       (4, 'aa', 'ss');
 
 -- 데이터 추가
 insert into festival(festival_no, festival_name, city_name, host_area, festival_period, festival_type, festival_area, area_type)
@@ -33,3 +34,18 @@ values
 (25, '명량대첩 축제','전라남도', '전라남도 해남군', '2023.09.08 ~ 10 \/ 10:00 ~ 22:00', '전통역사','울돌목 일원', '자연'),
 (26, '함평 모악산 꽃무릇 축제','전라남도', '전라남도 함평군', '2023.09.15 ~ 17 \/ 09:00 ~ 17:00', '생태자원','함평군 해보면 광암리 용천사', '자연'),
 (27, '영광 불갑사 상사화 축제','전라남도', '전라남도 영광군', '2023.09.15 ~ 24 \/ 08:00 ~ 22:00', '전통역사','영광군 불갑사광관지 일원', '자연');
+
+
+insert into point(point_no, member_id, point_count)
+values (1, 'alal', 1),
+       (2, 'anan', 100),
+       (3, 'ahah', 200),
+       (4, 'xmxm', 300),
+       (5, 'cmcm', 400),
+       (6, 'vmvm', 500),
+       (7, 'bmbm', 600),
+       (8, 'nmnm', 700),
+       (9, 'test', 800),
+       (10, 'test2', 900),
+       (11, 'aa', 0);
+

@@ -13,10 +13,13 @@ public class ResponseLoginMember {
 
     private String message;
 
+    private String error;
+
     public static ResponseLoginMember fromEntity(Member member) {
         return ResponseLoginMember.builder()
                 .id(member.getId())
                 .message("로그인 완료")
+                .error(null)
                 .build();
     }
 }

@@ -55,4 +55,10 @@ public class FestivalService {
 
         return null;
     }
+
+    public Page<Festival> findAllFestivals(Pageable pageable) {
+
+        Page<Festival> festivals = festivalRepository.findAll(pageable);
+        return festivals;
+    }
 }

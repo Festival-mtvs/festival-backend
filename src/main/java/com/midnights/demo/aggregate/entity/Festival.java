@@ -1,6 +1,8 @@
 package com.midnights.demo.aggregate.entity;
 
-import lombok.Getter;
+import com.midnights.demo.aggregate.dto.admin.RequestCreateFestival;
+import com.midnights.demo.aggregate.dto.admin.RequestEditFestival;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
@@ -8,6 +10,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Table
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Festival {
 
     @Id
@@ -52,11 +57,36 @@ public class Festival {
     @Column(name = "is_homepage")
     private int isHomepage;
 
+
+    public static Festival toEntity(RequestCreateFestival requestCreateFestival) {
+        return Festival.builder()
+                .festivalName(requestCreateFestival.getFestivalName())
+                .cityName(requestCreateFestival.getRegionName())
+                .hostArea(requestCreateFestival.getHostRegion())
+                .festivalPeriod(requestCreateFestival.getHostPeriod())
+                .festivalType(requestCreateFestival.getFestivalType())
+                .festivalArea(requestCreateFestival.getFestivalPlace())
+                .areaType(requestCreateFestival.getPlaceType())
+                .likeCount(0L)
+                .isHomepage(0)
+                .build();
+    }
+
     public void increaseLikeCount() {
         this.likeCount += 1L;
     }
 
     public void decreaseLikeCount() {
         this.likeCount = Math.max(0L, this.likeCount - 1);
+    }
+
+    public void update(RequestEditFestival requestEditFestival) {
+        this.festivalName = requestEditFestival.getFestivalName();
+        this.cityName = requestEditFestival.getRegionName();
+        this.hostArea = requestEditFestival.getHostRegion();
+        this.festivalPeriod = requestEditFestival.getHostPeriod();
+        this.festivalType = requestEditFestival.getFestivalType();
+        this.festivalArea = requestEditFestival.getFestivalPlace();
+        this.areaType = requestEditFestival.getPlaceType();
     }
 }

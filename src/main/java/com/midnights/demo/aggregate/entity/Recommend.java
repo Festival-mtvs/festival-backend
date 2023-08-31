@@ -21,8 +21,13 @@ public class Recommend {
     @Column(name = "recommend_no")
     private Long recommendNo;
 
-    @ElementCollection
     @Column(name = "recommend_list")
     @Comment("추천 리스트")
-    private List<Long> recommendedList;
+    private String recommendedList;
+
+    public static Recommend fromResponse(String response) {
+        return Recommend.builder()
+                .recommendedList(response)
+                .build();
+    }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Festival</title>
+  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2>Edit Festival</h2>
+
+  <form th:action="@{/admin/edit/{id}(id=${id})}" method="post">
+    축제명:  	<input type='text' name ='festivalName'><br/>
+    지역명:  	<input type='text' name ='regionName'><br/>
+    개최 지역:  	<input type='text' name ='hostRegion'><br/>
+    개최 기간:  	<input type = 'date' name ='hostPeriod'><br/>
+    축제 유형:  	<input type = 'text' name ='festivalType'><br/>
+    축제 장소:  	<input type = 'text' name ='festivalPlace'><br/>
+    장소 유형:  	<input type = 'text'name ='placeType'><br/>
+    <button type="submit">수정</button>
+  </form>
+</div>
+
+</body>
+</html>

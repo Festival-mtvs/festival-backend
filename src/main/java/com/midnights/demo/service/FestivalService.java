@@ -6,8 +6,10 @@ import com.midnights.demo.aggregate.dto.like.RequestPostLike;
 import com.midnights.demo.aggregate.dto.like.ResponsePostLike;
 import com.midnights.demo.aggregate.entity.Festival;
 import com.midnights.demo.aggregate.entity.Heart;
+import com.midnights.demo.aggregate.entity.Recommend;
 import com.midnights.demo.repository.FestivalRepository;
 import com.midnights.demo.repository.HeartRepository;
+import com.midnights.demo.repository.RecommendRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,15 +30,18 @@ public class FestivalService {
 
     private final FestivalRepository festivalRepository;
     private final HeartRepository heartRepository;
+    private final RecommendRepository recommendRepository;
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public FestivalService(FestivalRepository festivalRepository, ModelMapper modelMapper, ObjectMapper objectMapper, HeartRepository heartRepository) {
+    public FestivalService(FestivalRepository festivalRepository, ModelMapper modelMapper, ObjectMapper objectMapper, HeartRepository heartRepository,
+                           RecommendRepository recommendRepository) {
         this.festivalRepository = festivalRepository;
         this.modelMapper = modelMapper;
         this.objectMapper = objectMapper;
         this.heartRepository = heartRepository;
+        this.recommendRepository = recommendRepository;
     }
 
 
@@ -55,6 +60,7 @@ public class FestivalService {
         return modelMapper.map(findFestival, FestivalDTO.class);
     }
 
+    /* 좋아요 + 추천 */
     @Transactional
     public ResponsePostLike postLike(RequestPostLike requestPostLike, Long festivalNo) {
         Festival festival = festivalRepository.findFestivalByFestivalNo(festivalNo);
@@ -105,36 +111,10 @@ public class FestivalService {
                 .bodyToMono(String.class)
                 .block();
 
+        System.out.println("response = " + response);
+
         return response;
     }
-
-
-//    @Transactional
-//    /* 좋아요 수 증감 */
-//    public ResponsePostLike postLike(RequestPostLike requestPostLike, Long festivalNo) {
-//        Festival festival = festivalRepository.findFestivalByFestivalNo(festivalNo);
-//        Heart heart = heartRepository.findByMemberId(requestPostLike.getId());
-//
-//        if(heart == null){
-//            Heart findHeart = Heart.toEntity(requestPostLike, festivalNo);
-//            heartRepository.save(findHeart);
-//            festival.increaseLikeCount();
-//
-//            ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(findHeart, festival);
-//            return responsePostLike;
-//        }
-//
-//        if(heart.getIsLiked() == false){
-//            heart.changeLike();
-//            festival.increaseLikeCount();
-//        } else {
-//            heart.changeDonLike();
-//            festival.decreaseLikeCount();
-//        }
-//
-//        ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(heart, festival);
-//        return responsePostLike;
-//    }
 
     public Page<Festival> findAllFestivals(Pageable pageable) {
 

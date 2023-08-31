@@ -17,7 +17,7 @@ public class ResponseIncrePoint {
     public static ResponseIncrePoint fromEntity(Point point) {
         return ResponseIncrePoint.builder()
                 .point(point.getPoint())
-                .message("포인트가 증가했습니다.")
+                .message("points increased.")
                 .build();
     }
 }

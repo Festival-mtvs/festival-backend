@@ -52,11 +52,11 @@ public class MemberService {
         Member member = memberRepository.findById(requestLoginMember.getId());
 
         if (member == null){
-            throw new UserNotFoundException("아이디가 존재하지 않습니다.");
+            throw new UserNotFoundException("Id is not exist.");
         }
 
         else if (!(member.getPassword().equals(requestLoginMember.getPassword()))){
-            throw new InvalidPasswordException("비밀번호가 다릅니다.");
+            throw new InvalidPasswordException("password is not correct.");
         }
 
         ResponseLoginMember responseLoginMember = ResponseLoginMember.fromEntity(member);

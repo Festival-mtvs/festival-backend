@@ -12,14 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("admin/*")
 public class AdminController {
-    @GetMapping("/")
-    public String adminPage(){
+    @GetMapping("")
+    public String loginPage(){
         return "login";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute Admin admin){
+        System.out.println("----------------");
         System.out.println("admin = " + admin);
-        return null;
+        System.out.println("----------------");
+        return "redirect:/adminPage";
+    }
+
+    @GetMapping("/adminPage")
+    public String adminPage(){
+        return "adminPage";
     }
 }

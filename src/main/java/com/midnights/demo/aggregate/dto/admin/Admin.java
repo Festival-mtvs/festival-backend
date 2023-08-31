@@ -1,10 +1,8 @@
 package com.midnights.demo.aggregate.dto.admin;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Admin {
     private String id;
     private String password;

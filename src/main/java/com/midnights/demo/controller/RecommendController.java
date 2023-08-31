@@ -19,6 +19,7 @@ public class RecommendController {
 
     private final RecommendService recommendService;
 
+    /* 추천 로직 */
     @GetMapping("/recommendLike")
     @ResponseBody
     public ResponseEntity<ResponseRecommendList> recommend(@RequestBody RequestRecommendList requestRecommendList){

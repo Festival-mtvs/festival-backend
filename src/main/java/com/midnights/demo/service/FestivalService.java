@@ -12,8 +12,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class FestivalService {
@@ -22,7 +30,6 @@ public class FestivalService {
     private final HeartRepository heartRepository;
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
-//    private String hostArea;
 
     @Autowired
     public FestivalService(FestivalRepository festivalRepository, ModelMapper modelMapper, ObjectMapper objectMapper, HeartRepository heartRepository) {
@@ -48,9 +55,7 @@ public class FestivalService {
         return modelMapper.map(findFestival, FestivalDTO.class);
     }
 
-
     @Transactional
-    /* 좋아요 수 증감 */
     public ResponsePostLike postLike(RequestPostLike requestPostLike, Long festivalNo) {
         Festival festival = festivalRepository.findFestivalByFestivalNo(festivalNo);
         Heart heart = heartRepository.findByMemberId(requestPostLike.getId());
@@ -60,21 +65,76 @@ public class FestivalService {
             heartRepository.save(findHeart);
             festival.increaseLikeCount();
 
-            ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(findHeart, festival);
+            String response = sendToFlaskServer(festivalNo);
+            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response);
+
             return responsePostLike;
         }
 
         if(heart.getIsLiked() == false){
             heart.changeLike();
             festival.increaseLikeCount();
+
+            String response = sendToFlaskServer(festivalNo);
+            ResponsePostLike responsePostLike = ResponsePostLike.fromResponse(response);
+
+            return responsePostLike;
         } else {
             heart.changeDonLike();
             festival.decreaseLikeCount();
-        }
 
-        ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(heart, festival);
-        return responsePostLike;
+            return ResponsePostLike.builder()
+                    .recommendList(new ArrayList<>())
+                    .build();
+        }
     }
+
+    private String sendToFlaskServer(Long festivalNo) {
+        String url = "https://3cbd-210-110-77-226.ngrok-free.app";
+
+        WebClient webClient = WebClient.create();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("festival_no", festivalNo);
+
+        String response = webClient.post()
+                .uri(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(data))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        return response;
+    }
+
+
+//    @Transactional
+//    /* 좋아요 수 증감 */
+//    public ResponsePostLike postLike(RequestPostLike requestPostLike, Long festivalNo) {
+//        Festival festival = festivalRepository.findFestivalByFestivalNo(festivalNo);
+//        Heart heart = heartRepository.findByMemberId(requestPostLike.getId());
+//
+//        if(heart == null){
+//            Heart findHeart = Heart.toEntity(requestPostLike, festivalNo);
+//            heartRepository.save(findHeart);
+//            festival.increaseLikeCount();
+//
+//            ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(findHeart, festival);
+//            return responsePostLike;
+//        }
+//
+//        if(heart.getIsLiked() == false){
+//            heart.changeLike();
+//            festival.increaseLikeCount();
+//        } else {
+//            heart.changeDonLike();
+//            festival.decreaseLikeCount();
+//        }
+//
+//        ResponsePostLike responsePostLike = ResponsePostLike.fromEntity(heart, festival);
+//        return responsePostLike;
+//    }
 
     public Page<Festival> findAllFestivals(Pageable pageable) {
 

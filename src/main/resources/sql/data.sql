@@ -154,3 +154,6 @@ values (1, 'alal', 1),
        (10, 'test2', 900),
        (11, 'aa', 0);
 
+insert into heart(like_no, festival_no, is_liked, member_id)
+values (1, 1, true, 'alal');
+

@@ -46,7 +46,7 @@ public class FestivalController {
         responseMap.put("festivals", festivals);
 
         return new ResponseEntity<>(
-                new ResponseMessage(200, "조회성공", responseMap),
+                new ResponseMessage(200, "success", responseMap),
                 headers,
                 HttpStatus.OK
         );
@@ -66,7 +66,7 @@ public class FestivalController {
 
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(new ResponseMessage(200, "조회성공", responseMap));
+                .body(new ResponseMessage(200, "success", responseMap));
     }
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@ToString
 @Table
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

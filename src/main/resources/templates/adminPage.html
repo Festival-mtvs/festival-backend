@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Festival Management</title>
+    <!-- Bootstrap CSS -->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>미미</h1>
+
+<div class="container mt-5">
+    <h2>Festival Management</h2>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#add">Add Festival</a>
+        </li>
+        <!-- New button to view all festivals -->
+        <li class='nav-item'>
+            <a class='nav-link' href='/admin/read'>View All Festivals</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Add Festival Tab -->
+        <div id='add' class='tab-pane active'>
+            <form action='/admin/add' method='post'>
+                축제명:  	<input type='text' name ='festivalName'><br/>
+                지역명:  	<input type='text' name ='regionName'><br/>
+                개최 지역:  	<input type='text' name ='hostRegion'><br/>
+                개최 기간:  	<input type = 'date' name ='hostPeriod'><br/>
+                축제 유형:  	<input type = 'text' name ='festivalType'><br/>
+                축제 장소:  	<input type = 'text' name ='festivalPlace'><br/>
+                장소 유형:  	<input type = 'text'name ='placeType'><br/>
+                <button type=submit>Add festival!</button><hr/>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap JS for tab switching functionality -->
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+
+
 </body>
 </html>
